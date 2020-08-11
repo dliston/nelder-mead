@@ -1,3 +1,7 @@
+/*
+https://github.com/matteotiziano/nelder-mead/blob/master/main.c
+MIT Licence. Copyright (c) 2017 Matteo Maggioni
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,10 +29,10 @@ void nelder_mead(int n, const point_t *start, point_t *solution,
   point_t centroid;
 
   // allocate memory for internal points
-  point_r.x = malloc(n * sizeof(double));
-  point_e.x = malloc(n * sizeof(double));
-  point_c.x = malloc(n * sizeof(double));
-  centroid.x = malloc(n * sizeof(double));
+  point_r.x = (double *) malloc(n * sizeof(double));
+  point_e.x = (double *) malloc(n * sizeof(double));
+  point_c.x = (double *) malloc(n * sizeof(double));
+  centroid.x = (double *) malloc(n * sizeof(double));
 
   int iter_count = 0;
   int eval_count = 0;
@@ -36,9 +40,9 @@ void nelder_mead(int n, const point_t *start, point_t *solution,
   // initial simplex has size n + 1 where n is the dimensionality pf the data
   simplex_t simplex;
   simplex.n = n;
-  simplex.p = malloc((n + 1) * sizeof(point_t));
+  simplex.p = (point_t *) malloc((n + 1) * sizeof(point_t));
   for (int i = 0; i < n + 1; i++) {
-    simplex.p[i].x = malloc(n * sizeof(double));
+    simplex.p[i].x = (double *) malloc(n * sizeof(double));
     for (int j = 0; j < n; j++) {
       simplex.p[i].x[j] =
           (i - 1 == j) ? (start->x[j] != 0.0 ? 1.05 * start->x[j] : 0.00025)
@@ -154,7 +158,7 @@ void nelder_mead(int n, const point_t *start, point_t *solution,
   }
 
   // save solution in output argument
-  solution->x = malloc(n * sizeof(double));
+  solution->x = (double *) malloc(n * sizeof(double));
   copy_point(n, simplex.p + 0, solution);
 
   // free memory

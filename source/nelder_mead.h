@@ -1,3 +1,10 @@
+/*
+https://github.com/matteotiziano/nelder-mead/blob/master/main.c
+MIT Licence. Copyright (c) 2017 Matteo Maggioni
+*/
+
+
+
 #ifndef NELDER_MEAD_H
 #define NELDER_MEAD_H
 
@@ -51,19 +58,12 @@ void nelder_mead(int, const point_t *, point_t *, fun_t, const void *, const opt
 //-----------------------------------------------------------------------------
 
 int compare(const void *, const void *);
-
 void simplex_sort(simplex_t *);
-
 void get_centroid(const simplex_t *, point_t *);
-
 double modulus(double);
-
 int continue_minimization(const simplex_t *, int, int, const optimset_t *);
-
 void update_point(const simplex_t *, const point_t *, double, point_t *);
-
 void copy_point(int, const point_t *, point_t *);
-
 void swap_points(int, point_t *, point_t *);
 
 #endif // NELDER_MEAD_H
